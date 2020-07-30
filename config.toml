@@ -1,0 +1,9 @@
+[log]
+format = "json"
+level = "info"
+
+[app.bot]
+token = ""
+channel = 1269741018
+[app.binomo]
+token = ""

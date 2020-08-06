@@ -1,0 +1,34 @@
+version: "3.1"
+
+services:
+    db:
+        ports:
+            - 127.0.0.1:3306:3306
+        volumes:
+            - ./var/docker/volumes/mysql:/var/lib/mysql
+
+    prometheus:
+        ports:
+            - 127.0.0.1:9090:9090
+        volumes:
+            - ./var/docker/volumes/prometheus:/prometheus
+
+    grafana:
+        ports:
+            - 127.0.0.1:3000:3000
+        volumes:
+            - ./var/docker/volumes/grafana:/var/lib/grafana
+
+    jaeger:
+        ports:
+            - 127.0.0.1:14268:14268
+            - 127.0.0.1:16686:16686
+
+    oc-collector:
+        ports:
+            - 127.0.0.1:55680:55679
+
+    oc-agent:
+        ports:
+            - 127.0.0.1:55678:55678
+            - 127.0.0.1:55679:55679

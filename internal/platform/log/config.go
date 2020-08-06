@@ -12,3 +12,7 @@ type Config struct {
 	// NoColor makes sure that no log output gets colorized.
 	NoColor bool
 }
+
+func (c Config) Validate() error {
+	return nil
+}

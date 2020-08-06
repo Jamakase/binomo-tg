@@ -4,8 +4,8 @@ import "errors"
 
 // Config holds details necessary for logging.
 type Config struct {
-	Token string
-	Channel string
+	Token     string
+	Whitelist []int64
 }
 
 // Validate validates the configuration.

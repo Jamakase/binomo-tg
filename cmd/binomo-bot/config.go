@@ -32,6 +32,10 @@ func (c configuration) Validate() error {
 		return err
 	}
 
+	if err := c.Log.Validate(); err != nil {
+		return err
+	}
+
 	return nil
 }
 

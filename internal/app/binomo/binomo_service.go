@@ -3,18 +3,20 @@ package binomo
 import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
 	"log"
+	"strings"
 )
 
 type Service interface {
-	GetLastValue() Value
+	GetLastValue() []Pair
 }
 
 type service struct {
 	bot *tgbotapi.BotAPI
 }
 
-type Value struct {
-	Text string
+type Pair struct {
+	PairName string
+	Type     string
 }
 
 func New(config Config) Service {
@@ -28,7 +30,7 @@ func New(config Config) Service {
 	}
 }
 
-func (s service) GetLastValue() Value {
+func (s service) GetLastValue() []Pair {
 	u := tgbotapi.NewUpdate(0)
 	u.Timeout = 60
 
@@ -39,14 +41,27 @@ func (s service) GetLastValue() Value {
 	}
 
 	if len(updates) == 0 {
-		return Value{}
+		return []Pair{}
 	}
 
 	lastUpdate := updates[len(updates)-1]
 
 	text := lastUpdate.ChannelPost.Text
 
-	return Value{
-		text,
+	return parsePairs(text)
+}
+
+func parsePairs(str string) []Pair {
+	rows := strings.Split(str, "\n")
+	pairs := make([]Pair, len(rows))
+
+	for i, row := range rows {
+		v := strings.Split(row, "|")
+		pairs[i] = Pair{
+			PairName: v[0],
+			Type:     v[1],
+		}
 	}
+
+	return pairs
 }

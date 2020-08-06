@@ -1,8 +1,10 @@
 package main
 
 import (
+	"context"
 	"github.com/awesomeProject/internal/app/binomo"
 	"github.com/awesomeProject/internal/app/bot"
+	"github.com/awesomeProject/internal/app/bot/message_flow_config"
 	"github.com/awesomeProject/internal/platform/log"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
@@ -59,5 +61,7 @@ func main() {
 
 	binomo := binomo.New(config.App.Binomo)
 
-	bot.New(config.App.Bot, binomo)
+	bt := bot.New(config.App.Bot, binomo, bot.NewRepo(), message_flow_config.NewRepo())
+
+	bt.Run(context.TODO())
 }

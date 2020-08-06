@@ -4,6 +4,8 @@ go 1.14
 
 require (
 	github.com/go-telegram-bot-api/telegram-bot-api v4.6.4+incompatible
+	github.com/looplab/fsm v0.1.0 // indirect
+	github.com/robfig/cron v1.2.0
 	github.com/sagikazarmark/modern-go-application v0.0.0-20200616193432-b76a37ee9311
 	github.com/sirupsen/logrus v1.6.0
 	github.com/spf13/pflag v1.0.5

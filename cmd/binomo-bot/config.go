@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/awesomeProject/internal/app/binomo"
 	"github.com/awesomeProject/internal/app/bot"
+	"github.com/awesomeProject/internal/platform/database"
 	"github.com/awesomeProject/internal/platform/log"
 	"os"
 	"strings"
@@ -19,6 +20,8 @@ type configuration struct {
 	Log log.Config
 	// App configuration
 	App appConfig
+	// Log configuration
+	Database database.Config
 }
 
 // Process post-processes configuration after loading it.
@@ -36,12 +39,16 @@ func (c configuration) Validate() error {
 		return err
 	}
 
+	if err := c.Database.Validate(); err != nil {
+		return err
+	}
+
 	return nil
 }
 
 // appConfig represents the application related configuration.
 type appConfig struct {
-	Bot bot.Config
+	Bot    bot.Config
 	Binomo binomo.Config
 }
 

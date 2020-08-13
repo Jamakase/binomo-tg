@@ -1,0 +1,13 @@
+*
+
+!.git/
+!.gen/
+!*.go
+!cmd/
+!go.*
+!internal/
+!pkg/
+!Makefile
+!config.toml
+!main.mk
+**/pkged.go

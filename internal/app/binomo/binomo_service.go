@@ -58,8 +58,8 @@ func parsePairs(str string) []Pair {
 	for i, row := range rows {
 		v := strings.Split(row, "|")
 		pairs[i] = Pair{
-			PairName: v[0],
-			Type:     v[1],
+			PairName: strings.TrimSpace(v[0]),
+			Type:     strings.TrimSpace(v[1]),
 		}
 	}
 

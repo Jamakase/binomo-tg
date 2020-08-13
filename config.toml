@@ -3,3 +3,9 @@ format = "json"
 level = "info"
 
 [app]
+
+[database]
+    port = 27017
+    host = "127.0.0.1"
+    username = "root"
+    password = "example"

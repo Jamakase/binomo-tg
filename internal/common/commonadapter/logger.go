@@ -2,10 +2,10 @@ package commonadapter
 
 import (
 	"context"
+	"github.com/awesomeProject/internal/common"
 
 	"logur.dev/logur"
 
-	"binomo-bot/internal/common"
 )
 
 // Logger wraps a logur logger and exposes it under a custom interface.

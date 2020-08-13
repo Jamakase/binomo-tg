@@ -1,7 +1,7 @@
 # Build image
 FROM golang:1.14-alpine3.11 AS builder
 
-ENV GOFLAGS="-mod=readonly"
+#ENV GOFLAGS="-mod=readonly"
 
 RUN apk add --update --no-cache ca-certificates make git curl mercurial bzr
 
@@ -20,6 +20,7 @@ COPY Makefile *.mk ./
 RUN if [[ "${BUILD_TARGET}" == "debug" ]]; then make build-debug-deps; else make build-release-deps; fi
 
 COPY . .
+COPY config.toml /build/
 
 RUN set -xe && \
     if [[ "${BUILD_TARGET}" == "debug" ]]; then \
@@ -45,5 +46,6 @@ RUN if [[ "${BUILD_TARGET}" == "debug" ]]; then apk add --update --no-cache libc
 
 COPY --from=builder /build/* /usr/local/bin/
 
+COPY --from=builder /build/config.toml ./
 EXPOSE 8080
 CMD ["binomo-bot"]

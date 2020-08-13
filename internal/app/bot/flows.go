@@ -1,22 +1,34 @@
 package bot
 
-import "github.com/awesomeProject/internal/app/bot/message_flow_config"
+type Kind string
+
+const (
+	Schedule      Kind = "schedule"
+	Configuration      = "config"
+	StopJob            = "stop-job"
+)
 
 type Flow struct {
-	kind string
+	kind Kind
 	step string
 	info interface{}
 }
 
 type scheduleConfig struct {
 	chatId   int64
-	configId int64
+	configId ConfigId
 	tm       string
+}
+
+type SpecConfig struct {
+	Commands []Command
+	UpText   string
+	LowText  string
 }
 
 func NewScheduleFlow() Flow {
 	return Flow{
-		kind: "schedule",
+		kind: Schedule,
 		step: "initial",
 		info: scheduleConfig{},
 	}
@@ -24,8 +36,15 @@ func NewScheduleFlow() Flow {
 
 func NewConfigFlow() Flow {
 	return Flow{
-		kind: "config",
+		kind: Configuration,
 		step: "initial",
-		info: []message_flow_config.Command{},
+		info: SpecConfig{},
+	}
+}
+
+func NewStopJob() Flow {
+	return Flow{
+		kind: StopJob,
+		step: "initial",
 	}
 }

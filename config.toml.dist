@@ -1,0 +1,10 @@
+[log]
+format = "json"
+level = "info"
+
+[app]
+    [app.bot]
+        token = ""
+        whitelist = []
+    [app.binomo]
+        token = ""

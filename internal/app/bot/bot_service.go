@@ -113,7 +113,7 @@ func (bt botService) processMessage(ctx context.Context, update tgbotapi.Update)
 			bt.send(update.Message.Chat.ID, help)
 		case "listConfig":
 			if ls, err := bt.cfgRepo.List(ctx); err == nil {
-				if text, err := json.Marshal(ls); err == nil {
+				if text, err := json.MarshalIndent(ls, "", " "); err == nil {
 					bt.send(update.Message.Chat.ID, string(text))
 				}
 			} else {
@@ -122,7 +122,7 @@ func (bt botService) processMessage(ctx context.Context, update tgbotapi.Update)
 			}
 		case "listJobs":
 			ls := bt.cronStore.List(ctx)
-			if parsedList, err := json.Marshal(ls); err == nil {
+			if parsedList, err := json.MarshalIndent(ls, "", " "); err == nil {
 				bt.send(update.Message.Chat.ID, string(parsedList))
 			}
 		case "schedule":
@@ -189,11 +189,11 @@ func (bt botService) processMessage(ctx context.Context, update tgbotapi.Update)
 				} else {
 					info.chatId = int64(t)
 					us.flow.step = "requested_time"
-					bt.send(chatId, "Введите в какое время вы хотите запостить")
+					bt.send(chatId, "Введите в какое время вы хотите запостить. Это может помочь https://www.freeformatter.com/cron-expression-generator-quartz.html")
 				}
 			case "requested_time":
 				if _, err := cron.Parse(update.Message.Text); err != nil {
-					bt.send(chatId, "Неизвестный формат: "+err.Error()+"\n Попробуйте https://www.freeformatter.com/cron-expression-generator-quartz.html кроме Последнего символа ( только 6 значений, не ввода год")
+					bt.send(chatId, "Неизвестный формат: "+err.Error()+"\n Попробуйте https://www.freeformatter.com/cron-expression-generator-quartz.html кроме последнего символа ( только 6 значений, не ввода год )")
 				} else {
 					info.tm = update.Message.Text
 					us.flow.step = "requested_config"

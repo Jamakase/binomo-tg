@@ -3,6 +3,11 @@ format = "json"
 level = "info"
 
 [app]
+    [app.bot]
+        token = "1173784410:AAGjsnDtC5Fx2YoNfDOvBh0SyLv_ZVHAovw"
+        whitelist = [127235529]
+    [app.binomo]
+        token = "906982934:AAEks_983lNUbWMo-nLFiqAgDUG6ax8A2_0"
 
 [database]
     port = 27017
